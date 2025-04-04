@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+</head>
+<body style="background-color:grey;">
+
+    <div id="keys-form">
+        <h3>Enter your keys and friend's public key</h3>
+        <form >
+            <label for="role">Choose your tag:</label>
+            <input type="text" id="role" name="tag" required><br>
+
+            <h3>Enter your private keys (d and n):</h3>
+            <label for="private-key-d">Private Key (d):</label>
+            <input type="number" id="private-key-d" name="private-key-d" required><br>
+
+            <label for="private-key-n">Private Key (n):</label>
+            <input type="number" id="private-key-n" name="private-key-n" required><br>
+
+            <label for="private-key-e">Private Key (e):</label>
+            <input type="number" id="private-key-e" name="private-key-e" required><br>
+
+
+            <h3>Enter the other user's public key (e and n):</h3>
+            <label for="other-public-key-e">Other User's Public Key (e):</label>
+            <input type="number" id="other-public-key-e" name="other-public-key-e" required><br>
+
+            <label for="other-public-key-n">Other User's Public Key (n):</label>
+            <input type="number" id="other-public-key-n" name="other-public-key-n" required><br>
+
+        </form>
+
+    </div>
+
+
+    <h2>Welcome to the Chat Room</h2>
+    <p>Chat ID: <strong id="chat_id">{{ chat_id }}</strong></p> <!-- this is one of the fields that 's going to be sent back -->
+
+    <p>This is where your chat content would appear.</p>
+
+    <div id="messages">
+        <!-- Chat messages will appear here -->
+    </div>
+
+    <!-- form for a message -->
+    <form id="chat-form" method="POST">
+        {% csrf_token %}
+        <label for="message-text">Enter your message:</label>
+        <input type="text" id="message-text" required>
+        <button type="button" id="post_message">Send message</button>   <!-- this is the button that starts it all -->
+    </form>
+
+    <!-- Div where messages will be displayed after being posted -->
+    <div id="new"></div>
+
+
+
+    <!-- link to the script -->
+    <script src="{% static 'chat.js' %}" defer></script> <!-- static file configurations defined in settins, check that if there is a problem -->
+</body>
+</html>

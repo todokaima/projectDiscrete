@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Registration</title>
+
+    <!-- we are now going to load the static files -->
+    {% load static %}
+    {% csrf_token %}
+
+    <!-- we are going to use the static.js file to support the operations -->
+    <script src="{% static 'static.js' %}" defer></script>
+</head>
+<body style="background-color:grey;">
+    <h2>Register</h2>
+    <form id="register-form" method="POST" action="/register/">
+        {% csrf_token %}
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="friend_name">Friend's Name:</label>
+        <input type="text" id="friend_name" name="friend_name" required><br>
+
+        <label for="friend_email">Friend's Email:</label>
+        <input type="email" id="friend_email" name="friend_email" required><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <div id="response">
+        <!-- The chat ID will be inserted here after successful registration -->
+    </div>
+
+    <h3>Already have a Chat ID?</h3>
+    <form id="existing-chat-form">
+        <label for="existing_chat_id">Enter Chat ID:</label>
+        <input type="text" id="existing_chat_id" name="chat_id" required>
+        <button type="submit">Go to Chat</button>
+    </form>
+
+    <script>
+        // JavaScript to handle form submission for the existing chat ID
+        document.addEventListener("DOMContentLoaded", function () {
+            const existingChatForm = document.getElementById("existing-chat-form");
+            const existingChatIdInput = document.getElementById("existing_chat_id");
+            existingChatForm.addEventListener("submit", function (event) {
+                event.preventDefault();  // we don't want the form to be submitted without any input
+                const chatId = existingChatIdInput.value.trim();
+                if (!chatId) {
+                    alert("Please enter a valid Chat ID.");
+                    return;
+                }
+                // we are being redirected to the url that's responsible for the chatroom that we have asked
+                window.location.href = `/chat/${chatId}/`;
+            });
+        });
+    </script>
+</body>
+</html>
